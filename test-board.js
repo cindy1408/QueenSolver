@@ -1,17 +1,14 @@
-// const test = require('ava');
-// npm init ava
 import test from 'ava';
-// npm i sinon --save (mock)
 import Sinon  from 'sinon';
 import Board from './Board.js';
 import Piece from './Piece.js'
 
-const test_windy = test;
+// const test_windy = test;
 
-test_windy('test_windy', name => {
-	let names = 'Windy';
-	name.is(names, 'Windy')
-});
+// test_windy('test_windy', name => {
+// 	let names = 'Windy';
+// 	name.is(names, 'Windy')
+// });
 
 const test_constructor_ok = test;
 
@@ -32,6 +29,7 @@ test_constructor_negative_number_error('test_constructor_negative_number_error',
 	let boardNumber = board.n;
 	negative.assert(boardNumber > 0);
 })
+
 
 const test_constructor_infinity_error = test;
 
@@ -67,7 +65,6 @@ test_add_ok('test_add_ok', testAdd => {
 })
 
 
-
 const test_adminissiblePlacementFor_true = test; 
 
 test_adminissiblePlacementFor_true('test_adminissiblePlacementFor_true', placement => {
@@ -82,6 +79,8 @@ test_adminissiblePlacementFor_true('test_adminissiblePlacementFor_true', placeme
 
 	placement.assert(actual == true);
 });
+
+
 
 const test_adminissiblePlacementFor_false1 = test;
 
@@ -99,6 +98,7 @@ test_adminissiblePlacementFor_false1('test_adminissiblePlacementFor_false1', pla
 });
 
 
+
 const test_adminissiblePlacementFor_false2 = test; 
 
 test_adminissiblePlacementFor_false2('test_adminissiblePlacementFor_false2', placement => {
@@ -112,6 +112,7 @@ test_adminissiblePlacementFor_false2('test_adminissiblePlacementFor_false2', pla
 	let actual = board.admissiblePlacementFor(piece2);
 	placement.assert(actual == false);
 });
+
 
 const test_adminissiblePlacementFor_false3 = test;
 
@@ -127,12 +128,6 @@ test_adminissiblePlacementFor_false3('test_adminissiblePlacementFor_false3', pla
 
 	placement.assert(actual == false);
 })
-
-
-
-
-
-
 
 
 // extras, test_remove_ok

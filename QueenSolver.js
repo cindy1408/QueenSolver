@@ -1,9 +1,11 @@
+// npm i argparse 
 import argparse from 'argparse';
+import { toInteger } from 'lodash';
 
-import Board from './Board';
-import Queen from './Queen';
+import Board from './Board.js';
+import Queen from './Queen.js';
 
-numberOfSolutions = (i, board) => {
+let numberOfSolutions = (i, board) => {
     if(i < board.size()){
         queen = Queen();
         count = 0
@@ -17,17 +19,15 @@ numberOfSolutions = (i, board) => {
             queen.removeFromBoard()
         }
         return count;
-    } 
-    
-    return 1;
-    
+    }   
+    return 1; 
 }
 
 const parser = new argparse.ArgumentParser({
     description: `Solve the Queen's puzzle of the specified size`
   });
 
-parser.add_argument('size', metavar='N', type=int, help='an integer for the size of the board and number of queens')
+parser.add_argument('size', metavar='N', type=int , help='an integer for the size of the board and number of queens')
 
 let args = parser.parse_args()
 

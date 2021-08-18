@@ -1,5 +1,4 @@
 import Board from './Board.js';
-
 class Piece extends Board {
     constructor(){
         super();
