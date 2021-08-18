@@ -51,7 +51,7 @@ test('test_admissiblePlacementFor_true', () => {
     
     let piece2 = new Piece();
     piece2.attacks = jest.fn();
-    piece2.attacks.mockReturnValueOnce(false);
+    piece2.attacks.mockReturnValueOnce(true);
     let actual = board.admissiblePlacementFor(piece2);
 
     expect(actual).toBe(true);
