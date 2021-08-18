@@ -1,9 +1,10 @@
 {
   "scripts": {
-    "test": "ava"
+    "test": "jest --coverage"
   },
   "devDependencies": {
-    "ava": "^3.15.0"
+    "ava": "^3.15.0",
+    "jest": "^27.0.6"
   },
   "name": "queensolver",
   "version": "1.0.0",

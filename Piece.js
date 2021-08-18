@@ -1,4 +1,6 @@
-import Board from './Board.js';
+// import Board from './Board.js';
+
+const Board = require('./Board.js')
 class Piece extends Board {
     constructor(){
         super();
@@ -55,4 +57,6 @@ class Piece extends Board {
     unknown = -1
 }
 
-export default Piece; 
+// export default Piece; 
+
+module.exports = Piece; 

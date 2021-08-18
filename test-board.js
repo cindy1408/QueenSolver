@@ -11,7 +11,6 @@ import Piece from './Piece.js'
 // });
 
 const test_constructor_ok = test;
-
 test_constructor_ok('test_constructor_ok', functionBoard => {
 	let board = new Board(8);
 	board.n == 8;
@@ -22,7 +21,6 @@ test_constructor_ok('test_constructor_ok', functionBoard => {
 })
 
 const test_constructor_negative_number_error = test;
-
 test_constructor_negative_number_error('test_constructor_negative_number_error', negative => {
 	// don't forget to add negative in front of 1000. 
 	let board = new Board(1000);
@@ -32,7 +30,6 @@ test_constructor_negative_number_error('test_constructor_negative_number_error',
 
 
 const test_constructor_infinity_error = test;
-
 test_constructor_infinity_error('test_constructor_infinity_error', infinity => {
 	let board = new Board(Infinity);
 	let boardNumber = board.n;
@@ -41,21 +38,18 @@ test_constructor_infinity_error('test_constructor_infinity_error', infinity => {
 })
 
 const test_size_ok8 =  test;
-
 test_size_ok8('test_size_ok8', size => {
 	let board = new Board(8);
 	size.assert(board.size() == 8);
 })
 
 const test_size_ok1000 =  test;
-
 test_size_ok1000('test_size_ok1000', size => {
 	let board = new Board(1000);
 	size.assert(board.size() == 1000);
 })
 
 const test_add_ok = test;
-
 test_add_ok('test_add_ok', testAdd => {
 	let board = new Board(3);
 	let piece = new Piece();
@@ -66,8 +60,7 @@ test_add_ok('test_add_ok', testAdd => {
 
 
 const test_adminissiblePlacementFor_true = test; 
-
-test_adminissiblePlacementFor_true('test_adminissiblePlacementFor_true', placement => {
+test_adminissiblePlacementFor_true('test_adminissiblePlacementFor_true', test => {
 	let board = new Board(3);
 	let piece1 = new Piece();
 	piece1.attacks = Sinon.mock(false);
@@ -77,16 +70,17 @@ test_adminissiblePlacementFor_true('test_adminissiblePlacementFor_true', placeme
 	piece2.attacks = Sinon.mock(false);
 	let actual = board.admissiblePlacementFor(piece2)
 
-	placement.assert(actual == true);
+	test.assert(actual == true);
 });
 
-
-
 const test_adminissiblePlacementFor_false1 = test;
-
-test_adminissiblePlacementFor_false1('test_adminissiblePlacementFor_false1', placement => {
+test_adminissiblePlacementFor_false1('test_adminissiblePlacementFor_false1', test => {
 	let board = new Board(3);
 	let piece1 = new Piece();
+
+	// let mock = Sinon.mock(piece1);
+	// mock.expects('attacks').once()
+
 	piece1.attacks = Sinon.mock(true);
 	board.add(piece1);
 
@@ -94,14 +88,14 @@ test_adminissiblePlacementFor_false1('test_adminissiblePlacementFor_false1', pla
 	piece2.attacks = Sinon.mock(false);
 	let actual = board.admissiblePlacementFor(piece2);
 
-	placement.assert(actual == false);
+	test.assert(actual == false);
 });
 
 
 
 const test_adminissiblePlacementFor_false2 = test; 
 
-test_adminissiblePlacementFor_false2('test_adminissiblePlacementFor_false2', placement => {
+test_adminissiblePlacementFor_false2('test_adminissiblePlacementFor_false2', test=> {
 	let board = new Board(3);
 	let piece1 = new Piece();
 	piece1.attacks = Sinon.mock(false);
@@ -110,25 +104,25 @@ test_adminissiblePlacementFor_false2('test_adminissiblePlacementFor_false2', pla
 	let piece2 = new Piece();
 	piece2.attacks = Sinon.mock(true);
 	let actual = board.admissiblePlacementFor(piece2);
-	placement.assert(actual == false);
+	test.assert(actual == false);
 });
 
 
-const test_adminissiblePlacementFor_false3 = test;
+// const test_adminissiblePlacementFor_false3 = test;
 
-test_adminissiblePlacementFor_false3('test_adminissiblePlacementFor_false3', placement => {
-	let board = new Board(3);
-	let piece1 = new Piece();
-	piece1.attacks = Sinon.mock(true);
-	board.add(piece1);
+// test_adminissiblePlacementFor_false3('test_adminissiblePlacementFor_false3', placement => {
+// 	let board = new Board(3);
+// 	let piece1 = new Piece();
+// 	piece1.attacks = Sinon.mock(true);
+// 	board.add(piece1);
 
-	let piece2 = new Piece();
-	piece2.attacks = Sinon.mock(true);
-	let actual = board.admissiblePlacementFor(piece2);
+// 	let piece2 = new Piece();
+// 	piece2.attacks = Sinon.mock(true);
+// 	let actual = board.admissiblePlacementFor(piece2);
 
-	placement.assert(actual == false);
-})
+// 	placement.assert(actual == false);
+// })
 
 
-// extras, test_remove_ok
-// test_adminissiblePlacementFor (when the board is empty)
+// // extras, test_remove_ok
+// // test_adminissiblePlacementFor (when the board is empty)
