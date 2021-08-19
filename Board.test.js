@@ -56,14 +56,10 @@ test('test_admissiblePlacementFor_true', () => {
     let board = new Board(3);
     let piece1 = new Piece();
     piece1.attacks = jest.fn(() => true);
-    // piece1.attacks.mockReturnValue(true);
     board.add(piece1);
-    // let myMock = jest.fn();
-    // piece1.attacks = myMock.mockReturnValueOnce(true);
     
     let piece2 = new Piece();
     piece2.attacks = jest.fn(() => true);
-    // piece2.attacks.mockReturnValue(true);
     let actual = board.admissiblePlacementFor(piece2);
 
     expect(actual).toBe(false);
@@ -132,6 +128,5 @@ test('test_admissiblePlacementFor_empty-board', () => {
             throw new TypeError('There must be at least 2 pieces on the board');
         }
     }
-
     expect(checkForEmptyBoard).toThrow();
 });
