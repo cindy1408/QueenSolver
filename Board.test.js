@@ -7,19 +7,30 @@ test('test_constructor_ok', () => {
     board.n == 8;
     board.pieces == new Set();
     expect(new Set()).toEqual(board.pieces);
-    expect(new Set()).not.toBe(board.pieces);
 });
 
 test('test_constructor_negative_number_error', () => {
     let board = new Board(-1000);
     let boardNumber = board.n; 
-    expect(boardNumber).toBeLessThan(0);
+    function checkForNegatives (){
+        if(boardNumber < 0){
+            throw new TypeError('You must provide a positive number'); 
+        }
+    }
+        expect(checkForNegatives).toThrow();
 });
+
+
 
 test('test_constructor_infinity_error', () => {
     let board = new Board(Infinity);
     let boardNumber = board.n;
-    expect(boardNumber).toBe(Infinity);
+    function checkForInfinity (){
+        if(boardNumber == Infinity){
+            throw new TypeError('You must provide a positive number');
+        }
+    }
+    expect(checkForInfinity).toThrow();
 });
 
 test('test_size_ok8', () => {
@@ -32,7 +43,8 @@ test('test_size_ok1000', () => {
     expect(board.size()).toBe(1000);
 });
 
-test('test_add_ok', () => {
+
+test('should add piece to board', () => {
     let board = new Board(3);
     let piece = new Piece();
     board.add(piece);
@@ -43,60 +55,83 @@ test('test_add_ok', () => {
 test('test_admissiblePlacementFor_true', () => {
     let board = new Board(3);
     let piece1 = new Piece();
-    piece1.attacks = jest.fn();
-    piece1.attacks.mockReturnValueOnce(true);
+    piece1.attacks = jest.fn(() => true);
+    // piece1.attacks.mockReturnValue(true);
     board.add(piece1);
     // let myMock = jest.fn();
     // piece1.attacks = myMock.mockReturnValueOnce(true);
     
     let piece2 = new Piece();
-    piece2.attacks = jest.fn();
-    piece2.attacks.mockReturnValueOnce(true);
+    piece2.attacks = jest.fn(() => true);
+    // piece2.attacks.mockReturnValue(true);
     let actual = board.admissiblePlacementFor(piece2);
 
-    expect(actual).toBe(true);
+    expect(actual).toBe(false);
 });
+
+
 
 test('test_admissiblePlacementFor_false1', () => {
     let board = new Board(3);
     let piece1 = new Piece();
-    let piece2 = new Piece();
-    // console.log('This is the type of for piece1.attacks: ', typeof piece1.attacks)
-    piece1.attacks = jest.fn();
-    piece1.attacks.mockReturnValueOnce(true);
 
+    piece1.attacks = jest.fn();
+    piece1.attacks.mockReturnValue(true);
+    board.add(piece1);
+
+    let piece2 = new Piece();
     piece2.attacks = jest.fn();
-    piece2.attacks.mockReturnValueOnce(false);
-    let actual = board.admissiblePlacementFor(piece2.attacks);
-    // console.log('This is the type of for piece2.attacks: ', typeof piece2.attacks)
+    piece2.attacks.mockReturnValue(false);
+    let actual = board.admissiblePlacementFor(piece2);
+
     expect(actual).toEqual(false);
 });
 
-// test('test_admissiblePlacementFor_false2', () => {
-//     let board = new Board(3);
-//     let piece1 = new Piece();
-//     piece1.attacks = jest.fn();
-//     piece1.attacks.mockReturnValueOnce(false);
 
-//     let piece2 = new Piece();
-//     piece2.attacks = jest.fn();
-//     piece2.attacks.mockReturnValueOnce(true);
-//     let actual = board.admissiblePlacementFor(piece2.attacks);
-//     console.log(actual);
-//     expect(actual).toEqual(false);
-// });
+test('test_admissiblePlacementFor_false2', () => {
+    let board = new Board(3);
+    let piece1 = new Piece();
+    piece1.attacks = jest.fn();
+    piece1.attacks.mockReturnValue(false);
+    board.add(piece1);
+
+    let piece2 = new Piece();
+    piece2.attacks = jest.fn();
+    piece2.attacks.mockReturnValue(true);
+    let actual = board.admissiblePlacementFor(piece2);
+
+    expect(actual).toEqual(false);
+});
 
 
-// test('test_admissiblePlacementFor_false3', () => {
-//     let board = new Board(3);
-//     let piece1 = new Piece();
-//     piece1.attacks = jest.fn();
-//     piece1.attacks.mockReturnValueOnce(true);
+test('test_admissiblePlacementFor_false3', () => {
+    let board = new Board(3);
+    let piece1 = new Piece();
+    piece1.attacks = jest.fn();
+    piece1.attacks.mockReturnValueOnce(true);
+    board.add(piece1);
 
-//     let piece2 = new Piece();
-//     piece2.attacks = jest.fn();
-//     piece2.attacks.mockReturnValueOnce(true);
-//     let actual = board.admissiblePlacementFor(piece2.attacks);
-//     console.log(actual);
-//     expect(actual).toEqual(false);
-// });
+    let piece2 = new Piece();
+    piece2.attacks = jest.fn();
+    piece2.attacks.mockReturnValueOnce(true);
+    let actual = board.admissiblePlacementFor(piece2);
+
+    expect(actual).toEqual(false);
+});
+
+
+test('test_admissiblePlacementFor_empty-board', () => {
+    let board = new Board(3);
+    let piece1 = new Piece();
+    piece1.attacks = jest.fn();
+    piece1.attacks.mockReturnValue(false);
+    board.admissiblePlacementFor(piece1);
+
+    function checkForEmptyBoard(){
+        if(board.pieces.size < 2){
+            throw new TypeError('There must be at least 2 pieces on the board');
+        }
+    }
+
+    expect(checkForEmptyBoard).toThrow();
+});
